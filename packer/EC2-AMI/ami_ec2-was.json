@@ -1,0 +1,39 @@
+{
+  "_comment": "WAS Server IAM (Amazon Linux 2)",
+
+  "variables": {
+    "aws_region": "{{env `AWS_REGION`}}",
+    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+    "ami_name": "{{isotime \"2006-01-02_1504\"}}_AMI-EC2-WAS"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "instance_type": "t2.micro",
+      "ssh_username": "ec2-user",
+      "region": "{{user `aws_region`}}",
+      "vpc_id": "vpc-e213cd89",
+      "subnet_id": "subnet-984f87f3",
+      "source_ami": "ami-01288945bd24ed49a",
+      "security_group_id": "sg-0d4408ffcf0c0d09c",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "ami_name": "{{user `ami_name` | clean_resource_name}}",
+      "ami_description": "Was Server with Amazon Linux2",
+      "tags": {
+          "Name": "{{user `ami_name` | clean_resource_name}}",
+          "BaseAMI_Id": "{{ .SourceAMI }}",
+          "BaseAMI_Name": "{{ .SourceAMIName }}",
+          "TYPE": "EC2.ami"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "./welcome.txt",
+      "destination": "/tmp/"
+    }
+  ]
+}
