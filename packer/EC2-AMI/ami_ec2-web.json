@@ -5,7 +5,7 @@
     "aws_region": "{{env `AWS_REGION`}}",
     "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
     "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
-    "ami_name": "{{isotime \"2006-01-02_1504\"}}_AMI-EC2-WEB"
+    "aws_ami_name": "{{isotime \"2006-01-02_1504\"}}_AMI-EC2-WEB"
   },
   "builders": [
     {
@@ -19,7 +19,7 @@
       "security_group_id": "sg-0d4408ffcf0c0d09c",
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
-      "ami_name": "{{user `ami_name` | clean_resource_name}}",
+      "ami_name": "{{user `aws_ami_name` | clean_resource_name}}",
       "ami_description": "WEB Server with Amazon Linux2",
       "tags": {
           "Name": "{{user `ami_name` | clean_resource_name}}",
@@ -34,6 +34,10 @@
       "type": "file",
       "source": "./welcome.txt",
       "destination": "/tmp/"
+    },
+    {
+      "type": "ansible",
+      "playbook_file": "./playbook/main.yml"
     }
   ]
 }
