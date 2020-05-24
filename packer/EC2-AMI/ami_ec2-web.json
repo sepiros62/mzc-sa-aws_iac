@@ -22,7 +22,7 @@
       "ami_name": "{{user `aws_ami_name` | clean_resource_name}}",
       "ami_description": "WEB Server with Amazon Linux2",
       "tags": {
-          "Name": "{{user `ami_name` | clean_resource_name}}",
+          "Name": "{{user `aws_ami_name` | clean_resource_name}}",
           "BaseAMI_Id": "{{ .SourceAMI }}",
           "BaseAMI_Name": "{{ .SourceAMIName }}",
           "TYPE": "EC2.ami"
