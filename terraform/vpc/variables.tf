@@ -4,31 +4,16 @@ provider "aws" {
   profile   =   "jaehwan"
 }
 
-variable "region" {
-    description = "리전 선택 ap-northeast-2"
-    type        = string
-    default     = "ap-northeast-2"
-}
-
 variable "name" {
     description = "프로젝트 이름"
     type        = string
-    default     = "onboard"
+    default     = "ABC"
 }
 
-variable "allow_ip_address" {
-    description = "SSH 접속 IP"
-    type        = list(string)
-    
-    default     = [
-        "222.148.35.240/32", #MZC
-    ]
-}
-
-variable "vpc_cidr" {
-    description = "VPC의 기본 CIDR 정의"
+variable "region" {
+    description = "리전 선택"
     type        = string
-    default     = "10.10.0.0/16"
+    default     = "ap-northeast-2"
 }
 
 variable "az_names" {
@@ -40,6 +25,12 @@ variable "az_names" {
         ]
 }
 
+variable "vpc_cidr" {
+    description = "VPC의 CIDR 블록"
+    type        = string
+    default     = "10.10.0.0/16"
+}
+
 variable "public_subnets" {
     description = "퍼블릭 서브넷"
     type        = list(object({
@@ -49,11 +40,19 @@ variable "public_subnets" {
     default = [
         {
             zone = "ap-northeast-2a"
-            cidr = "10.10.0.0/25"
+            cidr = "10.10.0.0/24"
+        },
+        {
+            zone = "ap-northeast-2a"
+            cidr = "10.10.1.0/24"
+        },
+        {
+            zone = "ap-northeast-2c"
+            cidr = "10.10.2.0/24"
         },
                 {
             zone = "ap-northeast-2c"
-            cidr = "10.10.0.128/25"
+            cidr = "10.10.3.0/24"
         }
     ]
 }
@@ -67,17 +66,22 @@ variable "private_subnets" {
     default = [
         {
             zone = "ap-northeast-2a"
-            cidr = "10.10.1.0/25"
+            cidr = "10.10.4.0/24"
+        },
+        {
+            zone = "ap-northeast-2a"
+            cidr = "10.10.5.0/24"
+        },
+        {
+            zone = "ap-northeast-2c"
+            cidr = "10.10.6.0/24"
         },
                 {
             zone = "ap-northeast-2c"
-            cidr = "10.10.1.128/25"
+            cidr = "10.10.7.0/24"
         }
     ]
 }
 
-variable "tags" {
-    default     = {
-        "Jaehwan" = "mzc-jaehwan"
-    }
+data "aws_availability_zones" "azs" {
 }
