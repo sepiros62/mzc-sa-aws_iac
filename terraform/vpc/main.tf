@@ -1,4 +1,5 @@
-resource "aws_vpc" "this" {
+## Create Virtual Private Cloud ##
+resource "aws_vpc" "selected" {
   cidr_block  = var.vpc_cidr
   enable_dns_support   = true
   enable_dns_hostnames = true
@@ -8,26 +9,31 @@ resource "aws_vpc" "this" {
     }
 }
 
+
+## Create Internet Gateway ##
 resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.this.id
+  vpc_id = aws_vpc.selected.id
 
   tags = {
     Name = format("%s-IGW", var.name)
     }
 }
 
-resource "aws_route_table" "public" {
-  count  = 2
 
-  vpc_id = aws_vpc.this.id
+## Create Public Routeing Tables ##
+resource "aws_route_table" "public" {
+  count  = 1
+
+  vpc_id = aws_vpc.selected.id
 
   tags = {
       Name = format("%s-RT-Public-%s", var.name, count.index)
+      Tier = format("%s-RT-Public", var.name)
   }
 }
 
 resource "aws_route" "public" {
-  count = 2 # length(var.public_subnets)
+  count = 1
 
   route_table_id         = aws_route_table.public[count.index].id
   destination_cidr_block = "0.0.0.0/0"
@@ -38,10 +44,12 @@ resource "aws_route" "public" {
   }
 }
 
+
+## Create Public Subnet ##
 resource "aws_subnet" "public" {
     count  = length(var.public_subnets)
 
-    vpc_id = aws_vpc.this.id
+    vpc_id = aws_vpc.selected.id
 
     availability_zone = var.public_subnets[count.index].zone
 
@@ -51,55 +59,66 @@ resource "aws_subnet" "public" {
 
     tags = {
       Name = format("%s-Subnet-Public-%s", var.name, count.index)
+      Tier = format("%s", var.public_subnets[count.index].tier)
     }
 }
 
 resource "aws_route_table_association" "public" {
-  count = 2 #length(var.public_subnets)
+  count = length(var.public_subnets)
 
   subnet_id      = aws_subnet.public[count.index].id
-  route_table_id = aws_route_table.public[count.index].id
+  route_table_id = aws_route_table.public[0].id
 }
 
-resource "aws_eip" "private" {
-  vpc      = true
 
-  depends_on = [aws_route_table.public]
-
-  tags = {
-    Name = format("%s-private", var.name)
-  }
-}
-
-resource "aws_nat_gateway" "private" {
-  allocation_id = aws_eip.private.id
-
-  subnet_id     = aws_subnet.public[0].id
-
-  tags = {
-    Name = format("%s-NGW", var.name)
-  }
-}
-
+## Create Private Routeing Tables ##
 resource "aws_route_table" "private" {
     count  = 2
-    vpc_id = aws_vpc.this.id
+
+    vpc_id = aws_vpc.selected.id
 
     lifecycle {
       ignore_changes = [propagating_vgws]
     }
 
     tags = {
-        Name = format("%s-RT-Private-%s", var.name, count.index)
+      Name = format("%s-RT-Private-%s", var.name, count.index)
+      Tier = format("%s-RT-Private", var.name)
     }
 }
 
+
+## Create NAT Gateway ##
+resource "aws_eip" "private" {
+  count    = 2
+  vpc      = true
+
+  depends_on = [aws_route_table.public]
+
+  tags = {
+    Name = format("%s-EIP-Private-%s", var.name, count.index)
+  }
+}
+
+resource "aws_nat_gateway" "private" {
+  count = 2
+
+  allocation_id = aws_eip.private[count.index].id
+  subnet_id     = aws_subnet.public[count.index].id
+
+  tags = {
+    Name = format("%s-NAT-GW-%s", var.name, count.index)
+  }
+}
+
+
+## Create Private Subnet ##
 resource "aws_route" "private" {
-  count = 2 #length(var.private_subnets)
+  count = 2
 
   route_table_id         = aws_route_table.private[count.index].id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.private.id
+  nat_gateway_id         = aws_nat_gateway.private[count.index].id
 
   timeouts {
     create = "5m"
@@ -109,7 +128,7 @@ resource "aws_route" "private" {
 resource "aws_subnet" "private" {
     count  = length(var.private_subnets)
 
-    vpc_id = aws_vpc.this.id
+    vpc_id = aws_vpc.selected.id
 
     availability_zone = var.private_subnets[count.index].zone
 
@@ -119,13 +138,13 @@ resource "aws_subnet" "private" {
 
     tags = {
       Name = format("%s-Subnet-private-%s", var.name, count.index)
+      Tier = format("%s", var.private_subnets[count.index].tier)
     }
 }
 
-resource "aws_route_table_association" "private" {
-  count = 2 #length(var.private_subnets)
+# resource "aws_route_table_association" "private" {
+#   count = length(var.private_subnets)
 
-  subnet_id      = aws_subnet.private[count.index].id
-  route_table_id = aws_route_table.private[count.index].id
-}
-
+#   subnet_id      = aws_subnet.private[count.index].id
+#   route_table_id = aws_route_table.private[0].id
+# }

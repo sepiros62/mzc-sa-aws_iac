@@ -4,16 +4,16 @@ provider "aws" {
   profile   =   "jaehwan"
 }
 
-variable "name" {
-    description = "프로젝트 이름"
-    type        = string
-    default     = "ABC"
-}
-
 variable "region" {
     description = "리전 선택"
     type        = string
     default     = "ap-northeast-2"
+}
+
+variable "name" {
+    description = "프로젝트 이름"
+    type        = string
+    default     = "ABC"
 }
 
 variable "az_names" {
@@ -36,23 +36,28 @@ variable "public_subnets" {
     type        = list(object({
         zone = string
         cidr = string
+        tier = string
     }    ))
     default = [
         {
             zone = "ap-northeast-2a"
             cidr = "10.10.0.0/24"
-        },
-        {
-            zone = "ap-northeast-2a"
-            cidr = "10.10.1.0/24"
+            tier = "IGW-Subnet-Public"
         },
         {
             zone = "ap-northeast-2c"
+            cidr = "10.10.1.0/24"
+            tier = "IGW-Subnet-Public"
+        },
+        {
+            zone = "ap-northeast-2a"
             cidr = "10.10.2.0/24"
+            tier = "ALB-Subnet-Public"
         },
                 {
             zone = "ap-northeast-2c"
             cidr = "10.10.3.0/24"
+            tier = "ALB-Subnet-Public"
         }
     ]
 }
@@ -62,23 +67,28 @@ variable "private_subnets" {
     type        = list(object({
         zone = string
         cidr = string
+        tier = string
     }    ))
     default = [
         {
             zone = "ap-northeast-2a"
             cidr = "10.10.4.0/24"
-        },
-        {
-            zone = "ap-northeast-2a"
-            cidr = "10.10.5.0/24"
+            tier = "WAS-Subnet-Private"
         },
         {
             zone = "ap-northeast-2c"
+            cidr = "10.10.5.0/24"
+            tier = "WAS-Subnet-Private"
+        },
+        {
+            zone = "ap-northeast-2a"
             cidr = "10.10.6.0/24"
+            tier = "DB-Subnet-Private"
         },
                 {
             zone = "ap-northeast-2c"
             cidr = "10.10.7.0/24"
+            tier = "DB-Subnet-Private"
         }
     ]
 }
