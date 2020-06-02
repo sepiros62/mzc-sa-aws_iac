@@ -1,0 +1,37 @@
+---
+- name: 'WAS Server Configuration (Apache + PHP)'
+  hosts: all
+  become: yes
+  gather_facts: false
+  tasks:
+    - block:
+        - name: 'Install | Apache,PHP Web Service'
+          yum:
+            name: "{{ packages }}"
+            state: 'present'
+          vars:
+            packages:
+            - httpd
+            - php
+
+        - name: 'Enable | Apache Web Service'
+          systemd:
+            name: 'httpd'
+            state: started
+            enabled: true
+
+        - name: 'Check | Apache Web Service'
+          wait_for:
+            port: '80'
+            delay: 0
+            timeout: 1
+            state: started
+
+        - name: 'Playbook successful message'
+          debug:
+            msg: '################### SUCCESSFUL ###################'
+
+      rescue:
+        - name: 'Playbook failure message'
+          debug:
+            msg: '################### FAILED ###################'
