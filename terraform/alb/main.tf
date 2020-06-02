@@ -70,7 +70,7 @@ resource "aws_lb" "alb" {
   security_groups    = [aws_security_group.alb.id]
   subnets            = data.aws_subnet_ids.public.ids
 
-  enable_deletion_protection = true
+  enable_deletion_protection = false
 
   # access_logs {
   #   bucket  = "${aws_s3_bucket.lb_logs.bucket}"
@@ -81,18 +81,23 @@ resource "aws_lb" "alb" {
   tags = {
     Name = "${var.name}-ALB"
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
 }
 
 
 ## Create ALB Target-Group ##
 resource "aws_lb_target_group" "alb_tg" {
-  name     = "${var.name}-HTTP-TG"
+  name     = "${var.name}-WAS-TG"
   port     = 80
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.selected.id
 
   tags = {
-    Name = "${var.name}-HTTP-TG"
+    Name = "${var.name}-WAS-TG"
   }
 }
 
