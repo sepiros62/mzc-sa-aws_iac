@@ -1,3 +1,6 @@
+# Local .terraform directories
+**/.terraform/*
+
 # terraform binary
 terraform.exe
 
@@ -6,4 +9,5 @@ terraform.exe
 
 # terraform state 
 *.tfstate
-*.tfstate.backup
+*.tfstate.*
+
