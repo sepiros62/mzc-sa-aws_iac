@@ -11,19 +11,13 @@ variable "region" {
 }
 
 variable "name" {
-    description = "ALB 이름"
+    description = "프로젝트 이름"
     type        = string
-    default     = "ABC-ALB"
+    default     = "ABC"
 }
 
-variable "vpc_id" {
-    description = "VPC ID 입력"
+variable "domain" {
+    description = "도메인 이름"
     type        = string
-    default     = "ABC-VPC"
-}
-
-variable "subnet_id" {
-    description = "Subnet ID 입력"
-    type        = string
-    default     = ""
+    default     = "jaehwan.cf"
 }

@@ -1,4 +1,4 @@
-## Create Aurora Cluster Subnet-Group ##
+## Load VPC, Subnet Data ##
 data "aws_vpc" "selected" {
 
    tags = {
@@ -15,6 +15,7 @@ data "aws_subnet_ids" "private" {
   }
 }
 
+## Create Aurora Cluster Subnet-Group ##
 resource "aws_db_subnet_group" "aurora" {
   name        = "abc-aurora-subnet"
   description = "Aurora Database Cluster Sebnet-Group"
