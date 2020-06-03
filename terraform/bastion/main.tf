@@ -1,32 +1,67 @@
-resource "aws_instance" "this" {
-  ami           = var.ami_id
-  #ami           = var.ami_id != "" ? var.ami_id : data.aws_ami.this.id
-  instance_type = var.instance_type
-  subnet_id     = var.subnet_id
-  #subnet_id     = data.terraform_remote_state.vpc.outputs.public_subnet_ids[0]
-  key_name      = var.key_name
+## Load VPC, Subnet Data ##
+data "aws_vpc" "selected" {
 
-  user_data = var.user_data
-  # user_data = data.template_file.setup.rendered
+ tags = {
+   Name = "${var.name}-VPC"
+ }
+}
 
-  #iam_instance_profile = aws_iam_instance_profile.this.id
-
-  vpc_security_group_ids = [
-    aws_security_group.this.id,
-  ]
-
-  tags = {
-    Name = var.name
-    Type = "bastion"
+data "aws_subnet" "public" {
+  filter {
+    name   = "tag:Name"
+    values = ["ABC-Subnet-Public-0"]
   }
 }
 
-resource "aws_eip" "this" {
-  instance = aws_instance.this.id
+
+## Create Bastion Security-Group ##
+resource "aws_security_group" "bastion" {
+  name        = "${var.name}-SG-Bastion"
+  description = "Bastion Server Security-Group (port 22)"
+
+  vpc_id = data.aws_vpc.selected.id
+
+  ingress {
+    from_port   = "22"
+    to_port     = "22"
+    protocol    = "tcp"
+    cidr_blocks = var.allow_ip_address
+  }
+
+  egress {
+    from_port   = "0"
+    to_port     = "0"
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.name}-SG-Bastion"
+  }
+}
+
+
+## Create Bastion Host (EC2) ##
+resource "aws_instance" "bastion" {
+  ami           = var.ami_id
+  instance_type = var.instance_type
+  subnet_id     = data.aws_subnet.public.id
+  key_name      = var.key_name
+  user_data     = var.user_data
+
+  vpc_security_group_ids = [aws_security_group.bastion.id]
+
+  tags = {
+    Name = "${var.name}-Bastion-Server"
+  }
+}
+
+resource "aws_eip" "bastion" {
+  instance = aws_instance.bastion.id
 
   vpc = true
 
   tags = {
-    Name = var.name
+    Name = "${var.name}-EIP-Bastion"
   }
 }

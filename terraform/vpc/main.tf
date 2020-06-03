@@ -1,29 +1,3 @@
-## Load VPC, Subnet Data ##
-data "aws_vpc" "selected" {
-
-   tags = {
-     Name = "${var.name}-VPC"
-   }
-}
-
-data "aws_subnet_ids" "private_was" {
-  vpc_id = data.aws_vpc.selected.id
-
-  filter {
-    name   = "tag:Tier"
-    values = ["WAS-Subnet-Private"]
-  }
-}
-
-data "aws_subnet_ids" "private_db" {
-  vpc_id = data.aws_vpc.selected.id
-
-  filter {
-    name   = "tag:Tier"
-    values = ["DB-Subnet-Private"]
-  }
-}
-
 ## Create Virtual Private Cloud ##
 resource "aws_vpc" "selected" {
   cidr_block  = var.vpc_cidr
@@ -87,6 +61,8 @@ resource "aws_subnet" "public" {
     }
 }
 
+
+## Association Public Subnet ##
 resource "aws_route_table_association" "public" {
   count = length(var.public_subnets)
 
@@ -109,6 +85,18 @@ resource "aws_route_table" "private" {
       Name = format("%s-RT-Private-%s", var.name, count.index)
       Tier = format("%s-RT-Private", var.name)
     }
+}
+
+resource "aws_route" "private" {
+  count = 2
+
+  route_table_id         = aws_route_table.private[count.index].id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.private[count.index].id
+
+  timeouts {
+    create = "5m"
+  }
 }
 
 
@@ -137,20 +125,8 @@ resource "aws_nat_gateway" "private" {
 
 
 ## Create Private Subnet ##
-resource "aws_route" "private" {
-  count = 2
-
-  route_table_id         = aws_route_table.private[count.index].id
-  destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.private[count.index].id
-
-  timeouts {
-    create = "5m"
-  }
-}
-
 resource "aws_subnet" "private" {
-    count  = length(var.private_subnets)
+    count = length(var.private_subnets)
 
     vpc_id            = aws_vpc.selected.id
     availability_zone = var.private_subnets[count.index].zone
@@ -164,16 +140,21 @@ resource "aws_subnet" "private" {
     }
 }
 
-resource "aws_route_table_association" "private_was" {
-  for_each      = data.aws_subnet_ids.private_was.ids
 
-  subnet_id      = each.key
+## Association Private Subnet ##
+resource "aws_route_table_association" "private_was" {
+  count = length(var.private_subnets)-2
+
+  subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private[0].id
 }
 
 resource "aws_route_table_association" "private_db" {
-  for_each      = data.aws_subnet_ids.private_db.ids
+  for_each = {
+    private_db_1 = "3"
+    private_db_2 = "2"
+  }
 
-  subnet_id      = each.key
+  subnet_id      = aws_subnet.private[each.value].id
   route_table_id = aws_route_table.private[1].id
 }

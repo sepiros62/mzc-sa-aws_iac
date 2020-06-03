@@ -11,21 +11,9 @@ variable "region" {
 }
 
 variable "name" {
-  description = "서버 이름을 입력"
+  description = "프로젝트 이름을 입력"
   type        = string
-  default     = "ABC-BastionServer"
-}
-
-variable "vpc_id" {
-  description = "생성될 VPC ID 를 입력"
-  type        = string
-  default     = ""
-}
-
-variable "subnet_id" {
-  description = "생성될 Subnet ID 를 입력"
-  type        = string
-  default     = ""
+  default     = "ABC"
 }
 
 variable "administrator" {
@@ -69,7 +57,7 @@ variable "volume_size" {
 variable "key_name" {
   description = "키페어 이름 입력"
   type        = string
-  default     = "New_key_pair"
+  default     = "Megazone-Keypair"
 }
 
 variable "user_data" {
