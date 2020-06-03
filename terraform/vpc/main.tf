@@ -1,3 +1,29 @@
+## Load VPC, Subnet Data ##
+data "aws_vpc" "selected" {
+
+   tags = {
+     Name = "${var.name}-VPC"
+   }
+}
+
+data "aws_subnet_ids" "private_was" {
+  vpc_id = data.aws_vpc.selected.id
+
+  filter {
+    name   = "tag:Tier"
+    values = ["WAS-Subnet-Private"]
+  }
+}
+
+data "aws_subnet_ids" "private_db" {
+  vpc_id = data.aws_vpc.selected.id
+
+  filter {
+    name   = "tag:Tier"
+    values = ["DB-Subnet-Private"]
+  }
+}
+
 ## Create Virtual Private Cloud ##
 resource "aws_vpc" "selected" {
   cidr_block  = var.vpc_cidr
@@ -49,11 +75,9 @@ resource "aws_route" "public" {
 resource "aws_subnet" "public" {
     count  = length(var.public_subnets)
 
-    vpc_id = aws_vpc.selected.id
-
+    vpc_id            = aws_vpc.selected.id
     availability_zone = var.public_subnets[count.index].zone
-
-    cidr_block = var.public_subnets[count.index].cidr
+    cidr_block        = var.public_subnets[count.index].cidr
 
     map_public_ip_on_launch = true
 
@@ -128,11 +152,9 @@ resource "aws_route" "private" {
 resource "aws_subnet" "private" {
     count  = length(var.private_subnets)
 
-    vpc_id = aws_vpc.selected.id
-
+    vpc_id            = aws_vpc.selected.id
     availability_zone = var.private_subnets[count.index].zone
-
-    cidr_block = var.private_subnets[count.index].cidr
+    cidr_block        = var.private_subnets[count.index].cidr
 
     map_public_ip_on_launch = false
 
@@ -142,9 +164,16 @@ resource "aws_subnet" "private" {
     }
 }
 
-# resource "aws_route_table_association" "private" {
-#   count = length(var.private_subnets)
+resource "aws_route_table_association" "private_was" {
+  for_each      = data.aws_subnet_ids.private_was.ids
 
-#   subnet_id      = aws_subnet.private[count.index].id
-#   route_table_id = aws_route_table.private[0].id
-# }
+  subnet_id      = each.key
+  route_table_id = aws_route_table.private[0].id
+}
+
+resource "aws_route_table_association" "private_db" {
+  for_each      = data.aws_subnet_ids.private_db.ids
+
+  subnet_id      = each.key
+  route_table_id = aws_route_table.private[1].id
+}

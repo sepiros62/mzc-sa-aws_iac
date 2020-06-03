@@ -1,15 +1,15 @@
-# output "vpc_id" {
-#   value = aws_vpc.selected.id
-# }
+output "vpc_id" {
+  value = aws_vpc.selected.id
+}
 
-# output "public_subnet_ids" {
-#   value = aws_subnet.public.*.id
-# }
+output "private_was_ids" {
+  value = data.aws_subnet_ids.private_was.ids
+}
 
-# output "private_subnet_ids" {
-#   value = aws_subnet.private.*.id
-# }
+output "private_db_ids" {
+   value = data.aws_subnet_ids.private_db.ids
+ }
 
-# output "nat_gateway_ip" {
-#   value = aws_eip.private.public_ip
-# }
+output "nat_gateway_ip" {
+  value = aws_eip.private.public_ip
+}
