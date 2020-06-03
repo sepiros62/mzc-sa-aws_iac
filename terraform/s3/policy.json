@@ -1,15 +1,13 @@
 {
-  "Id": "Policy1590977408940",
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "Stmt1590977395948",
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Effect": "Allow",
-      "Resource": "arn:aws:s3:::abc-shop2.cf/*",
-      "Principal": "*"
-    }
-  ]
+    "Version": "2012-10-17",
+    "Id": "Policy1591181846970",
+    "Statement": [
+        {
+            "Sid": "Stmt1591181843960",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::e-abc-shop.cf/*"
+        }
+    ]
 }

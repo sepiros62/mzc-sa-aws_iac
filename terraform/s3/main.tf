@@ -1,3 +1,4 @@
+## Create S3 Storage Bucket ##
 resource "aws_s3_bucket" "bucket" {
   bucket = var.domain
   acl    = "public-read"
@@ -29,7 +30,9 @@ resource "time_sleep" "wait_15_seconds" {
 }
 
 resource "aws_s3_bucket_object" "object" {
-  bucket = var.domain
+  bucket = aws_s3_bucket.bucket.id
   key    = "index.html"
   source = "index.html"
+
+  force_destroy = true
 }
