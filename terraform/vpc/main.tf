@@ -174,3 +174,4 @@ resource "aws_vpc_endpoint" "s3" {
     Name = format("%s-EndPoint", var.name)
   }
 }
+

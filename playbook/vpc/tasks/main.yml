@@ -1,0 +1,17 @@
+---
+- block:
+    - name: "{{ aws_type[0] | default('') }} | Terraform Plan"
+      terraform:
+        project_path: "/root/mzc-aws-provisioning/terraform/{{ aws_type[0] | default('') }}/"
+        plan_file: terraform.plan
+        state: planned
+
+    - name: "{{ aws_type[0] | default('') }} | Terraform Apply"
+      terraform:
+        project_path: "/root/mzc-aws-provisioning/terraform/{{ aws_type[0] | default('') }}/"
+        state: present
+
+  rescue:
+    - name: "{{ aws_type[0] | default('') }} | Terraform Failure Message"
+      debug:
+        msg: '################### FAILED ###################'

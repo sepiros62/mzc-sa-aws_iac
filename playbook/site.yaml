@@ -1,0 +1,13 @@
+---
+- name: 'Terraform | AWS Resource Provisioning'
+  hosts: localhost
+  gather_facts: true
+  roles:
+    - { role: "{{ aws_type[0] | default('') }}", tags: [ all, "{{ aws_type[0] | default('') }}" ], when: terraform is defined }
+    - { role: "{{ aws_type[1] | default('') }}", tags: [ all, "{{ aws_type[1] | default('') }}" ], when: terraform is defined }
+    - { role: "{{ aws_type[2] | default('') }}", tags: [ all, "{{ aws_type[2] | default('') }}" ], when: terraform is defined }
+    - { role: "{{ aws_type[3] | default('') }}", tags: [ all, "{{ aws_type[3] | default('') }}" ], when: terraform is defined }
+    - { role: "{{ aws_type[4] | default('') }}", tags: [ all, "{{ aws_type[4] | default('') }}" ], when: terraform is defined }
+    - { role: "{{ aws_type[5] | default('') }}", tags: [ all, "{{ aws_type[5] | default('') }}" ], when: terraform is defined }
+    - { role: "{{ aws_type[6] | default('') }}", tags: [ all, "{{ aws_type[6] | default('') }}" ], when: terraform is defined }
+    - { role: "{{ aws_type[7] | default('') }}", tags: [ all, "{{ aws_type[7] | default('') }}" ], when: terraform is defined }
