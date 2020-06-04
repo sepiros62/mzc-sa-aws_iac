@@ -158,3 +158,19 @@ resource "aws_route_table_association" "private_db" {
   subnet_id      = aws_subnet.private[each.value].id
   route_table_id = aws_route_table.private[1].id
 }
+
+
+## Create VPC Endpoint ##
+locals {
+  route_table_ids = concat(aws_route_table.public.*.id, aws_route_table.private.*.id)
+}
+
+resource "aws_vpc_endpoint" "s3" {
+  vpc_id       = aws_vpc.selected.id
+  service_name = "com.amazonaws.ap-northeast-2.s3"
+  route_table_ids   = local.route_table_ids
+
+  tags = {
+    Name = format("%s-EndPoint", var.name)
+  }
+}
