@@ -13,5 +13,5 @@ variable "region" {
 variable "domain" {
     description = "DNS 이름"
     type        = string
-    default     = "new-abc-shop.cf"
+    default     = "e-abc-shop.cf"
 }
