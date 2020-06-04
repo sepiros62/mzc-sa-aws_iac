@@ -13,11 +13,11 @@ variable "region" {
 variable "domain" {
   description = "도메인 입력"
   type        = string
-  default     = "abc-shop.cf"
+  default     = "e-abc-shop.cf"
 }
 
 variable "ip_address" {
   description = "IPv4 A레코드 입력"
   type        = string
-  default     = "211.109.191.130"
+  default     = "221.148.35.240"
 }
