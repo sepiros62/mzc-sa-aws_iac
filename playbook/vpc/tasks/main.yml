@@ -5,13 +5,16 @@
         project_path: "{{ role_path }}/root/mzc-aws-provisioning/terraform/{{ aws_type[0] | default('') }}/"
         plan_file: terraform.plan
         state: planned
+      delegate_to: localhost
 
     - name: "{{ aws_type[0] | default('') }} | Terraform Apply"
       terraform:
         project_path: "{{ role_path }}/mzc-aws-provisioning/terraform/{{ aws_type[0] | default('') }}/"
         state: present
+      delegate_to: localhost
 
   rescue:
     - name: "{{ aws_type[0] | default('') }} | Terraform Failure Message"
       debug:
         msg: '################### FAILED ###################'
+      delegate_to: localhost
