@@ -1,0 +1,57 @@
+---
+- name: 'AWS Certificate'
+  hosts: 'localhost'
+  gather_facts: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: 'Gathering ACM Facts'
+      aws_acm_info:
+        aws_access_key: ''
+        aws_secret_key: ''
+        region: 'ap-northeast-2'
+      register: acm_fact_result
+
+    - name: 'Set Certificate Variables'
+      set_fact:
+        acm_issuer: "{{ item.issuer }}"
+        acm_status: "{{ item.status }}"
+        acm_domain_name: "{{ item.domain_name }}"
+        acm_created_at: "{{ item.created_at[:10] }}"
+        acm_issued_at: "{{ item.issued_at[:10] }}"
+        acm_not_before: "{{ item.not_before[:10] }}"
+        acm_not_after: "{{ item.not_after[:10] }}"
+      with_items: "{{ acm_fact_result.certificates }}"
+      when:
+              #        - item.in_use_by | default([])
+        - item.status == "ISSUED"
+
+    - name: 'Calculate Certificate Valid Days'
+      set_fact:
+        vaild_days: "{{ ((acm_not_after | to_datetime('%Y-%m-%d')) - (ansible_date_time.date | to_datetime('%Y-%m-%d'))) | regex_replace('(.*) days(.*)','\\1') }}"
+
+    - name: 'Send certificate alarm to the Slack'
+      slack:
+        token: 'T0JQED9ND/B014TR0J291/ZT31hryTmSUE5PRxxHsoHR1R'
+        channel: "#aws_tet_notice"
+        color: 'good'
+        icon_url: 'https://imgnew.megazone.com/2019/07/MZC_logo.png'
+        username: 'Amazon Web Service'
+        attachments:
+          - title: "[ 알림] AWS 인증서 만료일까지 {{ vaild_days }} days 남았습니다."
+            title_link: 'http://54.180.186.69/'
+            author_name: 'SA Team'
+            author_icon: 'https://cloud-img.hosting.kr/wp-content/uploads/2016/03/megazone.png'
+            text: |
+              :pushpin: *도메인:* {{ acm_domain_name }}
+              :pushpin: *발행:* `{{ acm_issuer }}`
+              :pushpin: *상태:* `{{ acm_status }}`
+              :pushpin: *요청날짜:* `{{ acm_created_at }}`
+              :pushpin: *발급날짜:* `{{ acm_issued_at }}`
+              :pushpin: *시작날짜:* `{{ acm_not_before }}`
+              :pushpin: *만료날짜:* `{{ acm_not_after }}`
+            color: '#ff7373'
+            image_url": 'http://my-website.com/path/to/image.jpg'
+            thumb_url: 'http://example.com/path/to/thumb.png'
+      when: vaild_days | int >= 30
+      delegate_to: localhost
