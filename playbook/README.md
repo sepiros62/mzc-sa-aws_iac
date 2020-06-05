@@ -1,4 +1,4 @@
-<h1 align="center"> 👋 AWX로 Terraform 쉽게 구성해보자~! </h1>
+<h1 align="center"> 👋 [AWX] Terraform을 A to Z까지 구성해보자~!  </h1>
 <p>
   <a href="https://sed-gitlab.hanpda.com/jhjeong/test/blob/master/README.md">
     <img src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
@@ -13,158 +13,77 @@
 
 
 ## 개요
-> ㅁ Terraform을 이용한 AWS 리소스 프로비저닝
+> ㅁ Terraform을 마이크로 단위의 AWS 리소스를 AWX를 활용하여 Workflow로 구성하여 자동화하는 것을 목표로 합니다.
 
-## 디렉토리 Layout
-ㅁ
+## 디렉토리 구조
 ```sh
-playbook/
+./playbook/
+├── README.md
+├── site.yaml
+├── hosts
 ├── alb
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
 ├── asg
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
 ├── aurora
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
 ├── bastion
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
 ├── cloudfront
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
-├── hosts
 ├── route53
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
 ├── s3
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
-├── site.yaml
 ├── slack
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
 └── vpc
     ├── defaults
-    │   └── main.yml
-    ├── files
     ├── handlers
-    │   └── main.yml
     ├── meta
-    │   └── main.yml
     ├── tasks
-    │   └── main.yml
-    ├── templates
     ├── tests
-    │   ├── inventory
-    │   └── test.yml
     └── vars
-        └── main.yml
 ```
 
 ## 작성자

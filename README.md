@@ -1,4 +1,4 @@
-<h1 align="center"> 👋 A to Z 까지 IaC로 자동화 해보기 </h1>
+<h1 align="center"> 👋 IaC를 이용하여 인프라를 코드로 관리해보자 </h1>
 <p>
   <a href="https://sed-gitlab.hanpda.com/jhjeong/test/blob/master/README.md">
     <img src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
@@ -13,21 +13,42 @@
 
 
 ## 개요
-> ㅁ Terraform을 이용한 AWS 리소스 프로비저닝
+> ㅁ IaC를 이용하여 AWS 리소스를 프로비저닝 해보기
 
-## 다운로드
-
+## 디렉토리 레이아웃
 ```sh
-git clone https://xxxxx;
+mzc-aws-provisioning/
+├── README.md
+├── shell
+│   └── shell
+├── packer
+│   └── EC2-AMI
+├── playbook
+│   ├── alb
+│   ├── asg
+│   ├── aurora
+│   ├── bastion
+│   ├── cloudfront
+│   ├── hosts
+│   ├── README.md
+│   ├── route53
+│   ├── s3
+│   ├── site.yaml
+│   ├── slack
+│   └── vpc
+└── terraform
+    ├── acm
+    ├── alb
+    ├── asg
+    ├── aurora
+    ├── backup
+    ├── bastion
+    ├── cloudfront
+    ├── route53
+    ├── s3
+    └── vpc
 ```
 
-## 실행 방법
-
-```sh
-Test
-
-```
- 
 ## 링크
 🤝 [issues page]().
 
