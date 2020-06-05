@@ -15,6 +15,11 @@
       register: validate_result
       changed_when: false
 
+    - set_stats:
+        data:
+          validate_result_rc: "{{ validate_result.rc }}"
+        aggregate: no
+
     - name: 'Build Packer AMI'
       tags: [ packer, packer_build ]
       shell:
