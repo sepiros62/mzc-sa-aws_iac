@@ -25,11 +25,13 @@
       changed_when: false
       register: packer_result
 
-    - set_fact:
-      tagbs: [ packer, packet_build ]
+    - name: 'Set AMI ID Variable'
+      tags: [ packer, packer_build ]
+      set_fact:
         ami_id: "{{ item | regex_replace('(.*)(ami.*)', '\\2') }}"
       with_items:
-        - "{{ result.stdout_lines | regex_replace('(.*)(ap-northeast-2: ami-[0-9,a-z]{17})(.*)', '\\2') }}"
+        - "{{ packer_result.stdout_lines | regex_replace('(.*)(ap-northeast-2: ami-[0-9,a-z]{17})(.*)', '\\2') }}"
+      delegate_to: localhost
 
     - name: 'Send alarm to the Slack'
       tags: [ packer, packer_build ]
@@ -46,5 +48,4 @@
             author_icon: 'https://cloud-img.hosting.kr/wp-content/uploads/2016/03/megazone.png'
             text: |
               :heavy_check_mark: *AMI_ID:* `{{ ami_id }}`
-~
-
+      delegate_to: localhost
