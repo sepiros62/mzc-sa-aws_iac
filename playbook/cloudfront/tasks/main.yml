@@ -2,14 +2,14 @@
 - block:
     - name: "{{ aws_type[4] | default('') }} | Terraform Plan"
       terraform:
-        project_path: "/root/mzc-aws-provisioning/terraform/{{ aws_type[4] | default('') }}/"
+        project_path: "/root/mzc-aws-provisioning/terraform/{{ aws_type[4] | default('') }}"
         plan_file: terraform.plan
         state: planned
       delegate_to: localhost
 
     - name: "{{ aws_type[4] | default('') }} | Terraform Apply"
       terraform:
-        project_path: "/root/mzc-aws-provisioning/terraform/{{ aws_type[4] | default('') }}/"
+        project_path: "/root/mzc-aws-provisioning/terraform/{{ aws_type[4] | default('') }}"
         state: present
       delegate_to: localhost
 
