@@ -11,7 +11,7 @@ data "aws_subnet_ids" "public" {
 
   filter {
     name   = "tag:Tier"
-    values = ["ALB-Subnet-Private"]
+    values = ["ALB-Subnet-Public"]
   }
 }
 
