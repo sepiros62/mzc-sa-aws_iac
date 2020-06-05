@@ -7,8 +7,6 @@
   tasks:
     - name: 'Gathering ACM Facts'
       aws_acm_info:
-        aws_access_key: ''
-        aws_secret_key: ''
         region: 'ap-northeast-2'
       register: acm_fact_result
 
@@ -23,8 +21,13 @@
         acm_not_after: "{{ item.not_after[:10] }}"
       with_items: "{{ acm_fact_result.certificates }}"
       when:
-              #        - item.in_use_by | default([])
+       #- item.in_use_by | default([])
         - item.status == "ISSUED"
+
+    - name: test message
+      debug:
+        msg: "{{ item }}"
+      with_items: "{{ acm_domain_name }}"
 
     - name: 'Calculate Certificate Valid Days'
       set_fact:

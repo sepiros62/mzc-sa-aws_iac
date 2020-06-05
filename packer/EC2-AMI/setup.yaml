@@ -14,6 +14,13 @@
             - httpd
             - php
 
+        - name: 'Add | PHP info File'
+          shell:
+            cmd: 'echo -e "<?php\nphpinfo();\n?>" > /var/www/html/'
+          args:
+            executable: '/bin/bash'
+          changed_when: false
+
         - name: 'Enable | Apache Web Service'
           systemd:
             name: 'httpd'

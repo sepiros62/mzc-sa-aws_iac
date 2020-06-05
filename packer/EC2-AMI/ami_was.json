@@ -38,7 +38,7 @@
     {
       "type": "ansible",
       "user": "ec2-user",
-      "playbook_file": "./main.yaml"
+      "playbook_file": "./setup.yaml"
     }
   ]
 }
