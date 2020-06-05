@@ -2,7 +2,6 @@
   "_comment": "WAS Server IAM (Amazon Linux 2)",
 
   "variables": {
-    "aws_region": "{{env `AWS_REGION`}}",
     "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
     "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
     "aws_ami_name": "{{isotime \"2006-01-02_1504\"}}_AMI-EC2-WAS"
@@ -12,7 +11,7 @@
       "type": "amazon-ebs",
       "instance_type": "t2.micro",
       "ssh_username": "ec2-user",
-      "region": "{{user `aws_region`}}",
+      "region": "ap-northeast-2",
       "vpc_id": "vpc-e213cd89",
       "subnet_id": "subnet-984f87f3",
       "source_ami": "ami-01288945bd24ed49a",
