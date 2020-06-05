@@ -12,13 +12,8 @@
       args:
         executable: '/bin/bash'
       delegate_to: localhost
-      register: validate_result
       changed_when: false
 
-    - set_stats:
-        data:
-          validate_result_rc: "{{ validate_result.rc | default('') }}"
-        aggregate: no
 
     - name: 'Build Packer AMI'
       tags: [ packer, packer_build ]
@@ -28,7 +23,4 @@
       args:
         executable: '/bin/bash'
       delegate_to: localhost
-      register: build_result
       changed_when: false
-      when:
-        - validate_result_rc == "0"
