@@ -23,4 +23,28 @@
         executable: '/bin/bash'
       delegate_to: localhost
       changed_when: false
+      register: packer_result
+
+    - set_fact:
+      tagbs: [ packer, packet_build ]
+        ami_id: "{{ item | regex_replace('(.*)(ami.*)', '\\2') }}"
+      with_items:
+        - "{{ result.stdout_lines | regex_replace('(.*)(ap-northeast-2: ami-[0-9,a-z]{17})(.*)', '\\2') }}"
+
+    - name: 'Send alarm to the Slack'
+      tags: [ packer, packer_build ]
+      slack:
+        token: 'T0JQED9ND/B014TR0J291/ZT31hryTmSUE5PRxxHsoHR1R'
+        channel: "#aws_tet_notice"
+        color: 'good'
+        icon_url: 'https://imgnew.megazone.com/2019/07/MZC_logo.png'
+        username: 'Amazon Web Service'
+        attachments:
+          - title: "[AWS] EC2 AMI 생성 완료 되었습니다."
+            title_link: 'http://54.180.186.69/'
+            author_name: 'CTC_SA_Team'
+            author_icon: 'https://cloud-img.hosting.kr/wp-content/uploads/2016/03/megazone.png'
+            text: |
+              :heavy_check_mark: *AMI_ID:* `{{ ami_id }}`
+~
 
