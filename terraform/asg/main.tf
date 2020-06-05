@@ -29,7 +29,7 @@ data "aws_lb_target_group" "alb" {
 data "aws_ami" "was" {
   most_recent = true
 
-  name_regex = "\\d{4}-\\d{2}-\\d{2}_\\d{4}_AMI-EC2-WEB"
+  name_regex = "\\d{4}-\\d{2}-\\d{2}_\\d{4}_AMI-EC2-WAS"
   owners = ["051542137113"]
 
   filter {
