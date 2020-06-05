@@ -14,7 +14,6 @@
       delegate_to: localhost
       changed_when: false
 
-
     - name: 'Build Packer AMI'
       tags: [ packer, packer_build ]
       shell:
@@ -24,3 +23,4 @@
         executable: '/bin/bash'
       delegate_to: localhost
       changed_when: false
+
