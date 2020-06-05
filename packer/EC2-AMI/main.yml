@@ -5,7 +5,7 @@
   gather_facts: false
   tasks:
     - name: 'Validate Packer AMI'
-      tags: [ paker, packer_validate ]
+      tags: [ packer, packer_validate ]
       shell:
         cmd: 'packer validate ami_was.json'
         chdir: '/root/mzc-aws-provisioning/packer/EC2-AMI/'

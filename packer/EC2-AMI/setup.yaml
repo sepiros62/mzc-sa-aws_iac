@@ -16,7 +16,7 @@
 
         - name: 'Add | PHP info File'
           shell:
-            cmd: 'echo -e "<?php\nphpinfo();\n?>" > /var/www/html/'
+            cmd: 'echo -e "<?php\nphpinfo();\n?>" > /var/www/html/info.php'
           args:
             executable: '/bin/bash'
           changed_when: false
