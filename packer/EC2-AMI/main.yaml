@@ -17,7 +17,7 @@
 
     - set_stats:
         data:
-          validate_result_rc: "{{ validate_result.rc }}"
+          validate_result_rc: "{{ validate_result.rc | default('') }}"
         aggregate: no
 
     - name: 'Build Packer AMI'
@@ -31,4 +31,4 @@
       register: build_result
       changed_when: false
       when:
-        - validate_result_rc == 0
+        - validate_result_rc == "0"
