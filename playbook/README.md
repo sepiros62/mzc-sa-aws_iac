@@ -17,153 +17,73 @@
 
 ## 디렉토리 구조
 ```sh
-playbook/
+./playbook/
+├── README.md
+├── site.yaml
+├── hosts
 ├── alb
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
 ├── asg
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
 ├── aurora
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
 ├── bastion
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
 ├── cloudfront
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
-├── hosts
 ├── route53
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
 ├── s3
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
-├── site.yaml
 ├── slack
 │   ├── defaults
-│   │   └── main.yml
-│   ├── files
 │   ├── handlers
-│   │   └── main.yml
 │   ├── meta
-│   │   └── main.yml
 │   ├── tasks
-│   │   └── main.yml
-│   ├── templates
 │   ├── tests
-│   │   ├── inventory
-│   │   └── test.yml
 │   └── vars
-│       └── main.yml
 └── vpc
     ├── defaults
-    │   └── main.yml
-    ├── files
     ├── handlers
-    │   └── main.yml
     ├── meta
-    │   └── main.yml
     ├── tasks
-    │   └── main.yml
-    ├── templates
     ├── tests
-    │   ├── inventory
-    │   └── test.yml
     └── vars
-        └── main.yml
 ```
 
 ## 작성자
