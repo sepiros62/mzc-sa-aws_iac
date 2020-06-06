@@ -21,7 +21,7 @@
             echo -e "<?php\nphpinfo();\n?>" > /var/www/html/info.php
             if [ ! -f /var/www/html/ec2-linux-web.tar.gz ]; then
                cd /var/www/html
-               get https://for-distribution-cwk.s3-ap-northeast-2.amazonaws.com/ec2-linux-web.tar.gz
+               wget https://for-distribution-cwk.s3-ap-northeast-2.amazonaws.com/ec2-linux-web.tar.gz
                tar xvfz ec2-linux-web.tar.gz
             fi
             yum -y update
