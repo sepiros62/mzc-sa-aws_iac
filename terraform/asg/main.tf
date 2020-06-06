@@ -22,6 +22,13 @@ data "aws_security_group" "alb" {
    }
 }
 
+data "aws_security_group" "bastion" {
+
+   tags = {
+     Name = "${var.name}-SG-Bastion"
+   }
+}
+
 data "aws_lb_target_group" "alb" {
    name = "${var.name}-WAS-TG"
 }
@@ -70,6 +77,20 @@ resource "aws_security_group" "was" {
     to_port   = "443"
     protocol  = "tcp"
     security_groups = [data.aws_security_group.alb.id]
+  }
+
+  egress {
+    from_port = "0"
+    to_port   = "0"
+    protocol  = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = "22"
+    to_port   = "22"
+    protocol  = "tcp"
+    security_groups = [data.aws_security_group.bastion.id]
   }
 
   egress {

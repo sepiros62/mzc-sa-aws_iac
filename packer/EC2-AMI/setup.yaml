@@ -13,10 +13,18 @@
             packages:
             - httpd
             - php
+            - mysql
+            - php-mysql
 
         - name: 'Add | PHP info File'
-          shell:
-            cmd: 'echo -e "<?php\nphpinfo();\n?>" > /var/www/html/info.php'
+          shell: |
+            echo -e "<?php\nphpinfo();\n?>" > /var/www/html/info.php
+            if [ ! -f /var/www/html/ec2-linux-web.tar.gz ]; then
+               cd /var/www/html
+               get https://for-distribution-cwk.s3-ap-northeast-2.amazonaws.com/ec2-linux-web.tar.gz
+               tar xvfz ec2-linux-web.tar.gz
+            fi
+            yum -y update
           args:
             executable: '/bin/bash'
           changed_when: false
