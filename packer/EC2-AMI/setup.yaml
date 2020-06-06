@@ -16,7 +16,7 @@
             - mysql
             - php-mysql
 
-        - name: 'Add | PHP info File'
+        - name: 'Add | PHP Source Files'
           shell: |
             echo -e "<?php\nphpinfo();\n?>" > /var/www/html/info.php
             if [ ! -f /var/www/html/ec2-linux-web.tar.gz ]; then
