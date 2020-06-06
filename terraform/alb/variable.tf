@@ -19,5 +19,5 @@ variable "name" {
 variable "domain" {
     description = "도메인 이름"
     type        = string
-    default     = "jaehwan.cf"
+    default     = "abc-shop.cf"
 }
