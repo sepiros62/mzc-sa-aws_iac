@@ -21,9 +21,9 @@ resource "aws_route53_record" "api" {
   type    = "A"
 
   alias {
-    name                   = data.aws_lb.alb.dns_name
+    name                   = data.aws_lb.alb.name
     zone_id                = data.aws_lb.alb.zone_id
-    evaluate_target_health = true
+    evaluate_target_health = false
   }
 }
 
