@@ -7,7 +7,7 @@
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::e-abc-shop.cf/*"
+            "Resource": "arn:aws:s3:::b-abc-shop.cf/*"
         }
     ]
 }

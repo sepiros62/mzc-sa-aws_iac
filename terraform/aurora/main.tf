@@ -88,7 +88,7 @@ resource "aws_rds_cluster" "default" {
   db_subnet_group_name    = aws_db_subnet_group.aurora.name
   db_cluster_parameter_group_name  = aws_rds_cluster_parameter_group.default.name
 
-  deletion_protection     = true
+  deletion_protection     = false
 
   tags = {
     Name = "ABC-Aurora-Cluster"

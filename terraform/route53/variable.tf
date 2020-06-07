@@ -13,7 +13,13 @@ variable "region" {
 variable "domain" {
   description = "도메인 입력"
   type        = string
-  default     = "e-abc-shop.cf"
+  default     = "abc-shop.cf"
+}
+
+variable "name" {
+    description = "프로젝트 이름"
+    type        = string
+    default     = "ABC"
 }
 
 variable "ip_address" {
