@@ -19,5 +19,5 @@ variable "domain" {
 variable "bucket_name" {
     description = "Bucket 이름"
     type        = string
-    default     = "b-${var.domain}"
+    default     = "b-abc-shop.cf"
 }

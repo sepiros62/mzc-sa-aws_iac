@@ -1,3 +1,4 @@
+## Create CloudFront ##
 locals {
   s3_origin_id = "S3-${var.domain}"
 }
@@ -8,7 +9,7 @@ resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = "${var.domain}.s3.amazonaws.com"
+    domain_name = "${var.bucket_name}.s3.amazonaws.com"
     origin_id   = local.s3_origin_id
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path
@@ -18,10 +19,11 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
+  aliases = [ "www.${var.domain}" ]
 
   logging_config {
     include_cookies = false
-    bucket          = "${var.domain}.s3.amazonaws.com"
+    bucket          = "${var.bucket_name}.s3.amazonaws.com"
     prefix          = ""
   }
 
@@ -60,13 +62,13 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 }
 
 data "aws_s3_bucket" "selected" {
-  bucket = var.domain
+  bucket = var.bucket_name
 }
 
 data "aws_iam_policy_document" "s3_policy" {
   statement {
     actions   = ["s3:GetObject"]
-    resources = ["arn:aws:s3:::${var.domain}/*"]
+    resources = ["arn:aws:s3:::${var.bucket_name}/*"]
 
     principals {
       type        = "AWS"
@@ -76,6 +78,6 @@ data "aws_iam_policy_document" "s3_policy" {
 }
 
 resource "aws_s3_bucket_policy" "selected" {
-  bucket = var.domain
+  bucket = var.bucket_name
   policy = data.aws_iam_policy_document.s3_policy.json
 }
