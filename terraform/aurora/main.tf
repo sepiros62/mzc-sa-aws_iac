@@ -95,7 +95,9 @@ resource "aws_rds_cluster" "default" {
   db_cluster_parameter_group_name  = aws_rds_cluster_parameter_group.default.name
 
   deletion_protection     = false
+  skip_final_snapshot  = true
 
+  
   lifecycle {
       create_before_destroy = true
   }
