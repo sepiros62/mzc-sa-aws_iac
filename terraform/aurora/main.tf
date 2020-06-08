@@ -1,4 +1,4 @@
-## Load VPC, Subnet Data ##
+## Load VPC, Subnet, Security Group Data ##
 data "aws_vpc" "selected" {
 
    tags = {
@@ -14,6 +14,7 @@ data "aws_subnet_ids" "private" {
     values = ["DB-Subnet-Private"]
   }
 }
+
 
 ## Create Aurora Cluster Subnet-Group ##
 resource "aws_db_subnet_group" "aurora" {

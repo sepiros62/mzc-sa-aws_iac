@@ -29,6 +29,25 @@
             executable: '/bin/bash'
           changed_when: false
 
+        - name: 'Add | DB Source Files'
+          shell: |
+            echo -e "<?php
+            $servername = "abc-aurora-cluster.cluster-crm2u1irmmgo.ap-northeast-2.rds.amazonaws.com";
+            $username = "admin";
+            $password = "cdnadmin";
+            $db = "abcdb";
+            // Create connection
+            $conn = mysqli_connect($servername, $username, $password);
+            // Check connection
+            if (!$conn) {
+              die("Connection failed: " . mysqli_connect_error());
+            }
+            echo 'Installation Success! & Aurora Connection Success!';
+            ?>" > /var/www/html/database.php
+          args:
+            executable: '/bin/bash'
+          changed_when: false
+
         - name: 'Enable | Apache Web Service'
           systemd:
             name: 'httpd'

@@ -30,11 +30,6 @@
   ],
   "provisioners": [
     {
-      "type": "file",
-      "source": "./welcome.txt",
-      "destination": "/tmp/"
-    },
-    {
       "type": "ansible",
       "user": "ec2-user",
       "playbook_file": "./setup.yaml"
