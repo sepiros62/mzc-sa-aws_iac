@@ -63,18 +63,23 @@ resource "aws_security_group" "aurora" {
 
 
 ## Create Aurora Cluster Instance ##
-resource "aws_rds_cluster_instance" "default" {
-  identifier              = "abc-aurora-instance"
+resource "aws_rds_cluster_instance" "cluster_instance" {
+  count	                  = 2
+  identifier              = "abc-aurora-instance-${count.index}"
   cluster_identifier      = aws_rds_cluster.default.id
   engine                  = "aurora"
   engine_version          = "5.6.10a"
-  instance_class          = "db.r5.large"
+  instance_class          = "db.t2.small"
   auto_minor_version_upgrade = false
   performance_insights_enabled = false
   db_subnet_group_name    = aws_db_subnet_group.aurora.name
 
+  lifecycle {
+      create_before_destroy = true
+  }
+
   tags = {
-    Name = "ABC-Aurora-Instance"
+    Name = "ABC-Aurora-Instance-${count.index}"
   }
 }
 
@@ -89,6 +94,10 @@ resource "aws_rds_cluster" "default" {
   db_cluster_parameter_group_name  = aws_rds_cluster_parameter_group.default.name
 
   deletion_protection     = false
+
+  lifecycle {
+      create_before_destroy = true
+  }
 
   tags = {
     Name = "ABC-Aurora-Cluster"

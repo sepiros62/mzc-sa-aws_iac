@@ -1,8 +1,8 @@
 ## Load ALB, ROUTE53 Data ##
 
-# data "aws_cloudfront_distribution" "cloudfront" {
-#   id = "EDFDVBD632BHDS5"
-# }
+data "aws_cloudfront_distribution" "cloudfront" {
+  id = "E1X4PMUIRETJ0O"
+}
 
 data "aws_lb" "alb" {
   name = "${var.name}-ALB"
@@ -27,14 +27,14 @@ resource "aws_route53_record" "api" {
   }
 }
 
-# resource "aws_route53_record" "www" {
-#   zone_id = data.aws_route53_zone.public.zone_id
-#   name = "www.${var.domain}"
-#   type    = "A"
+resource "aws_route53_record" "www" {
+  zone_id = data.aws_route53_zone.public.zone_id
+  name = "www.${var.domain}"
+  type    = "A"
 
-#   alias {
-#     name                   = data.aws_lb.alb.dns_name
-#     zone_id                = data.aws_lb.alb.zone_id
-#     evaluate_target_health = false
-#   }
-# }
+  alias {
+    name                   = data.aws_cloudfront_distribution.cloudfront.domain_name
+    zone_id                = data.aws_cloudfront_distribution.cloudfront.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
