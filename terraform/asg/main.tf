@@ -123,15 +123,27 @@ resource "aws_launch_configuration" "was" {
 ## Create Auto Scaling Group ##
 resource "aws_autoscaling_group" "asg" {
   name                 = "${var.name}-ASG"
-  min_size             = 1
-  max_size             = 1
   desired_capacity     = 1
+  min_size             = 1
+  max_size             = 3
   launch_configuration = aws_launch_configuration.was.id
   vpc_zone_identifier  = data.aws_subnet_ids.private.ids
 
   force_delete              = true
   health_check_grace_period = 300
   health_check_type         = "ELB"
+}
+
+resource "aws_autoscaling_policy" "asg_policy" {
+  name                   = "${var.name}-ASG_Policy"
+  autoscaling_group_name = aws_autoscaling_group.asg.name
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+    target_value = 70.0
+  }
 }
 
 resource "aws_autoscaling_attachment" "asg_attachment" {
