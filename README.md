@@ -1,4 +1,4 @@
-<h1 align="center"> 👋 IaC를 이용하여 인프라를 코드로 관리해보자!!! </h1>
+<h1 align="center"> 👋 IaC를 이용하여 인프라를 코드로 관리해보자! </h1>
 <p>
   <a href="https://sed-gitlab.hanpda.com/jhjeong/test/blob/master/README.md">
     <img src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
