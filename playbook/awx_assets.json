@@ -1,0 +1,876 @@
+[
+    {
+      "inputs": {
+        "password": "",
+        "username": "AKIAQYABGTEM7VOAXQZK"
+      },
+      "description": "[AWS] Access/Secret Key",
+      "asset_relation": {
+        "roles": [
+          {
+            "team": [],
+            "name": "Admin",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Use",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Read",
+            "user": []
+          }
+        ]
+      },
+      "credential_type": "Amazon Web Services",
+      "organization": "MegazoneCloud",
+      "asset_type": "credential",
+      "name": "[AWS] Access/Secret Key"
+    },
+    {
+      "inputs": {
+        "token": ""
+      },
+      "description": "Personal Access Token",
+      "asset_relation": {
+        "roles": [
+          {
+            "team": [],
+            "name": "Use",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Admin",
+            "user": [
+              "admin"
+            ]
+          },
+          {
+            "team": [],
+            "name": "Read",
+            "user": []
+          }
+        ]
+      },
+      "credential_type": "GitHub Personal Access Token",
+      "organization": "MegazoneCloud",
+      "asset_type": "credential",
+      "name": "[GitHub] Personal Access Token"
+    },
+    {
+      "asset_relation": {
+        "notification_templates_error": [],
+        "notification_templates_success": [],
+        "roles": [
+          {
+            "team": [],
+            "name": "Admin",
+            "user": [
+              "sepiros62"
+            ]
+          },
+          {
+            "team": [],
+            "name": "Execute",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Read",
+            "user": []
+          }
+        ],
+        "labels": [
+          {
+            "organization": "MegazoneCloud",
+            "name": "terraform"
+          },
+          {
+            "organization": "MegazoneCloud",
+            "name": "vpc"
+          }
+        ],
+        "schedules": [],
+        "credentials": [
+          "[AWS] Access/Secret Key"
+        ],
+        "survey_spec": {}
+      },
+      "description": "[Terraform] VPC Provisioning",
+      "job_tags": "all,vpc",
+      "extra_vars": "---\nterraform: true",
+      "verbosity": 3,
+      "allow_simultaneous": true,
+      "name": "[Terraform] 1. VPC Provisioning",
+      "project": "[Github] mzc-sa-aws_iac \uc800\uc7a5\uc18c",
+      "inventory": "[AWS] Local Inventory",
+      "asset_type": "job_template",
+      "playbook": "playbook/site.yaml"
+    },
+    {
+      "asset_relation": {
+        "notification_templates_error": [],
+        "notification_templates_success": [],
+        "roles": [
+          {
+            "team": [],
+            "name": "Admin",
+            "user": [
+              "sepiros62"
+            ]
+          },
+          {
+            "team": [],
+            "name": "Execute",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Read",
+            "user": []
+          }
+        ],
+        "labels": [
+          {
+            "organization": "MegazoneCloud",
+            "name": "bastion"
+          },
+          {
+            "organization": "MegazoneCloud",
+            "name": "terraform"
+          }
+        ],
+        "schedules": [],
+        "credentials": [
+          "[AWS] Access/Secret Key"
+        ],
+        "survey_spec": {}
+      },
+      "description": "[Terraform] Bastion Provisioning",
+      "job_tags": "all,bastion",
+      "extra_vars": "---\nterraform: true",
+      "verbosity": 3,
+      "allow_simultaneous": true,
+      "name": "[Terraform] 2. Bastion Provisioning",
+      "project": "[Github] mzc-sa-aws_iac \uc800\uc7a5\uc18c",
+      "inventory": "[AWS] Local Inventory",
+      "asset_type": "job_template",
+      "playbook": "playbook/site.yaml"
+    },
+    {
+      "asset_relation": {
+        "notification_templates_error": [],
+        "notification_templates_success": [],
+        "roles": [
+          {
+            "team": [],
+            "name": "Admin",
+            "user": [
+              "sepiros62"
+            ]
+          },
+          {
+            "team": [],
+            "name": "Execute",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Read",
+            "user": []
+          }
+        ],
+        "labels": [
+          {
+            "organization": "MegazoneCloud",
+            "name": "bastion"
+          },
+          {
+            "organization": "MegazoneCloud",
+            "name": "s3"
+          }
+        ],
+        "schedules": [],
+        "credentials": [
+          "[AWS] Access/Secret Key"
+        ],
+        "survey_spec": {}
+      },
+      "description": "[Terraform] S3 Provisioning",
+      "job_tags": "all,s3",
+      "extra_vars": "---\nterraform: true",
+      "verbosity": 3,
+      "allow_simultaneous": true,
+      "name": "[Terraform] 3. S3 Provisioning",
+      "project": "[Github] mzc-sa-aws_iac \uc800\uc7a5\uc18c",
+      "inventory": "[AWS] Local Inventory",
+      "asset_type": "job_template",
+      "playbook": "playbook/site.yaml"
+    },
+    {
+      "asset_relation": {
+        "notification_templates_error": [],
+        "notification_templates_success": [],
+        "roles": [
+          {
+            "team": [],
+            "name": "Admin",
+            "user": [
+              "sepiros62"
+            ]
+          },
+          {
+            "team": [],
+            "name": "Execute",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Read",
+            "user": []
+          }
+        ],
+        "labels": [
+          {
+            "organization": "MegazoneCloud",
+            "name": "alb"
+          },
+          {
+            "organization": "MegazoneCloud",
+            "name": "bastion"
+          }
+        ],
+        "schedules": [],
+        "credentials": [
+          "[AWS] Access/Secret Key"
+        ],
+        "survey_spec": {}
+      },
+      "description": "[Terraform] ALB Provisioning",
+      "job_tags": "all,alb",
+      "extra_vars": "---\nterraform: true",
+      "verbosity": 3,
+      "allow_simultaneous": true,
+      "name": "[Terraform] 4. ALB Provisioning",
+      "project": "[Github] mzc-sa-aws_iac \uc800\uc7a5\uc18c",
+      "inventory": "[AWS] Local Inventory",
+      "asset_type": "job_template",
+      "playbook": "playbook/site.yaml"
+    },
+    {
+      "asset_relation": {
+        "notification_templates_error": [],
+        "notification_templates_success": [],
+        "roles": [
+          {
+            "team": [],
+            "name": "Admin",
+            "user": [
+              "sepiros62"
+            ]
+          },
+          {
+            "team": [],
+            "name": "Execute",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Read",
+            "user": []
+          }
+        ],
+        "labels": [
+          {
+            "organization": "MegazoneCloud",
+            "name": "alb"
+          },
+          {
+            "organization": "MegazoneCloud",
+            "name": "asg"
+          }
+        ],
+        "schedules": [],
+        "credentials": [
+          "[AWS] Access/Secret Key"
+        ],
+        "survey_spec": {}
+      },
+      "description": "[Terraform] ASG Provisioning",
+      "job_tags": "all,asg",
+      "extra_vars": "---\nterraform: true",
+      "verbosity": 3,
+      "allow_simultaneous": true,
+      "name": "[Terraform] 5. ASG Provisioning",
+      "project": "[Github] mzc-sa-aws_iac \uc800\uc7a5\uc18c",
+      "inventory": "[AWS] Local Inventory",
+      "asset_type": "job_template",
+      "playbook": "playbook/site.yaml"
+    },
+    {
+      "asset_relation": {
+        "notification_templates_error": [],
+        "notification_templates_success": [],
+        "roles": [
+          {
+            "team": [],
+            "name": "Admin",
+            "user": [
+              "sepiros62"
+            ]
+          },
+          {
+            "team": [],
+            "name": "Execute",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Read",
+            "user": []
+          }
+        ],
+        "labels": [
+          {
+            "organization": "MegazoneCloud",
+            "name": "alb"
+          },
+          {
+            "organization": "MegazoneCloud",
+            "name": "aurora"
+          }
+        ],
+        "schedules": [],
+        "credentials": [
+          "[AWS] Access/Secret Key"
+        ],
+        "survey_spec": {}
+      },
+      "description": "[Terraform] Aurora Provisioning",
+      "job_tags": "all,aurora",
+      "extra_vars": "---\nterraform: true",
+      "verbosity": 3,
+      "allow_simultaneous": true,
+      "name": "[Terraform] 6. Aurora Provisioning",
+      "project": "[Github] mzc-sa-aws_iac \uc800\uc7a5\uc18c",
+      "inventory": "[AWS] Local Inventory",
+      "asset_type": "job_template",
+      "playbook": "playbook/site.yaml"
+    },
+    {
+      "asset_relation": {
+        "notification_templates_error": [],
+        "notification_templates_success": [],
+        "roles": [
+          {
+            "team": [],
+            "name": "Admin",
+            "user": [
+              "sepiros62"
+            ]
+          },
+          {
+            "team": [],
+            "name": "Execute",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Read",
+            "user": []
+          }
+        ],
+        "labels": [
+          {
+            "organization": "MegazoneCloud",
+            "name": "alb"
+          },
+          {
+            "organization": "MegazoneCloud",
+            "name": "route53"
+          }
+        ],
+        "schedules": [],
+        "credentials": [
+          "[AWS] Access/Secret Key"
+        ],
+        "survey_spec": {}
+      },
+      "description": "[Terraform] Route53 Provisioning",
+      "job_tags": "all,route53",
+      "extra_vars": "---\nterraform: true",
+      "verbosity": 3,
+      "allow_simultaneous": true,
+      "name": "[Terraform] 7. Route53 Provisioning",
+      "project": "[Github] mzc-sa-aws_iac \uc800\uc7a5\uc18c",
+      "inventory": "[AWS] Local Inventory",
+      "asset_type": "job_template",
+      "playbook": "playbook/site.yaml"
+    },
+    {
+      "description": "[Terraform] AWS Infrastructure provisioning",
+      "allow_simultaneous": true,
+      "asset_relation": {
+        "labels": [
+          {
+            "organization": "MegazoneCloud",
+            "name": "terraform"
+          }
+        ],
+        "schedules": [],
+        "workflow_nodes": [
+          {
+            "name": "node0",
+            "unified_job_type": "job",
+            "success_nodes": [
+              "node1"
+            ],
+            "failure_nodes": [],
+            "unified_job_name": "[Terraform] 1. VPC Provisioning",
+            "identifier": "d4f2d499-7896-4fe3-ba7d-aa8edc9ab2c7",
+            "always_nodes": []
+          },
+          {
+            "name": "node1",
+            "unified_job_type": "workflow_approval",
+            "success_nodes": [
+              "node5"
+            ],
+            "failure_nodes": [],
+            "unified_job_name": "[Check] 1. VPC \uad6c\uc131 \ud655\uc778",
+            "identifier": "28b44441-9b7e-4c94-a0a0-27dec9b38351",
+            "always_nodes": []
+          },
+          {
+            "name": "node2",
+            "unified_job_type": "workflow_approval",
+            "success_nodes": [
+              "node3"
+            ],
+            "failure_nodes": [],
+            "unified_job_name": "[Check] 2. Bastion \uad6c\uc131 \ud655\uc778",
+            "identifier": "b3e5fdd0-22e7-4267-832b-8a3a8e1dca42",
+            "always_nodes": []
+          },
+          {
+            "name": "node3",
+            "unified_job_type": "job",
+            "success_nodes": [
+              "node6"
+            ],
+            "failure_nodes": [],
+            "unified_job_name": "[Terraform] 3. S3 Provisioning",
+            "identifier": "9879289d-0689-4031-a1b0-f6830c97885d",
+            "always_nodes": []
+          },
+          {
+            "name": "node4",
+            "unified_job_type": "project_update",
+            "success_nodes": [
+              "node0"
+            ],
+            "failure_nodes": [],
+            "unified_job_name": "[Github] mzc-sa-aws_iac \uc800\uc7a5\uc18c",
+            "identifier": "48e57cec-1516-4998-bb9d-a06adfb211cd",
+            "always_nodes": []
+          },
+          {
+            "name": "node5",
+            "unified_job_type": "job",
+            "success_nodes": [
+              "node2"
+            ],
+            "failure_nodes": [],
+            "unified_job_name": "[Terraform] 2. Bastion Provisioning",
+            "identifier": "2b9f8e4f-95ed-4d13-a76d-d925d1c811a7",
+            "always_nodes": []
+          },
+          {
+            "name": "node6",
+            "unified_job_type": "workflow_approval",
+            "success_nodes": [
+              "node8"
+            ],
+            "failure_nodes": [],
+            "unified_job_name": "[Check] 3. S3 \uad6c\uc131 \ud655\uc778",
+            "identifier": "b589789d-f521-4ec9-ac77-704569e16c82",
+            "always_nodes": []
+          },
+          {
+            "name": "node7",
+            "unified_job_type": "workflow_approval",
+            "success_nodes": [
+              "node9"
+            ],
+            "failure_nodes": [],
+            "unified_job_name": "[Check] 4. ALB \uad6c\uc131 \ud655\uc778",
+            "identifier": "b0c9aafc-e08c-417e-aa57-9d3c07ff3431",
+            "always_nodes": []
+          },
+          {
+            "name": "node8",
+            "unified_job_type": "job",
+            "success_nodes": [
+              "node7"
+            ],
+            "failure_nodes": [],
+            "unified_job_name": "[Terraform] 4. ALB Provisioning",
+            "identifier": "336fddbe-c3da-4acb-ba24-ec1353675af8",
+            "always_nodes": []
+          },
+          {
+            "name": "node9",
+            "unified_job_type": "job",
+            "success_nodes": [
+              "node10"
+            ],
+            "failure_nodes": [],
+            "unified_job_name": "[Terraform] 5. ASG Provisioning",
+            "identifier": "308367c9-7cac-430f-8da8-a7991202b45c",
+            "always_nodes": []
+          },
+          {
+            "name": "node10",
+            "unified_job_type": "workflow_approval",
+            "success_nodes": [
+              "node12"
+            ],
+            "failure_nodes": [],
+            "unified_job_name": "[Check] 5. ASG \uad6c\uc131 \ud655\uc778",
+            "identifier": "27a0f8a3-f009-4326-b7fd-dbffc6ab5d1e",
+            "always_nodes": []
+          },
+          {
+            "name": "node11",
+            "unified_job_type": "workflow_approval",
+            "success_nodes": [
+              "node13"
+            ],
+            "failure_nodes": [],
+            "unified_job_name": "[Check] 6. Aurora \uad6c\uc131 \ud655\uc778",
+            "identifier": "c37ca892-2a1f-4664-928c-30f6678c2fc2",
+            "always_nodes": []
+          },
+          {
+            "name": "node12",
+            "unified_job_type": "job",
+            "success_nodes": [
+              "node11"
+            ],
+            "failure_nodes": [],
+            "unified_job_name": "[Terraform] 6. Aurora Provisioning",
+            "identifier": "38fd9f81-1f90-460a-abdb-b4849c38baa1",
+            "always_nodes": []
+          },
+          {
+            "name": "node13",
+            "unified_job_type": "job",
+            "success_nodes": [],
+            "failure_nodes": [],
+            "unified_job_name": "[Terraform] 7. Route53 Provisioning",
+            "identifier": "6dfa927b-2f76-4326-8d76-9bbf550879d6",
+            "always_nodes": []
+          }
+        ],
+        "roles": [
+          {
+            "team": [],
+            "name": "Admin",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Execute",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Read",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Approve",
+            "user": []
+          }
+        ],
+        "survey_spec": {
+          "name": "",
+          "description": "",
+          "spec": [
+            {
+              "question_name": "\ud504\ub85c\ube44\uc800\ub2dd \ud560 \uc791\uc5c5\uc744 \uc120\ud0dd\ud574\uc8fc\uc138\uc694.",
+              "question_description": "[Terraform] AWS \uc778\ud504\ub77c \ud504\ub85c\ube44\uc800\ub2dd \uc791\uc5c5",
+              "required": true,
+              "type": "multiselect",
+              "variable": "aws_type",
+              "min": null,
+              "max": null,
+              "default": "",
+              "choices": "vpc\nbastion\ns3\nalb\nasg\naurora\nroute53"
+            }
+          ]
+        }
+      },
+      "organization": "MegazoneCloud",
+      "asset_type": "workflow",
+      "survey_enabled": true,
+      "name": "[Terraform] AWS Infrastructure provisioning"
+    },
+    {
+      "name": "Demo Project",
+      "scm_url": "https://github.com/ansible/ansible-tower-samples",
+      "asset_relation": {
+        "notification_templates_error": [],
+        "notification_templates_success": [],
+        "roles": [
+          {
+            "team": [],
+            "name": "Admin",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Use",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Update",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Read",
+            "user": []
+          }
+        ],
+        "schedules": []
+      },
+      "scm_type": "git",
+      "scm_update_on_launch": true,
+      "organization": "MegazoneCloud",
+      "asset_type": "project"
+    },
+    {
+      "asset_relation": {
+        "notification_templates_error": [],
+        "notification_templates_success": [],
+        "roles": [
+          {
+            "team": [],
+            "name": "Admin",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Use",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Update",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Read",
+            "user": []
+          }
+        ],
+        "schedules": []
+      },
+      "scm_branch": "master",
+      "description": "mzc-sa-aws_iac \uc800\uc7a5\uc18c",
+      "scm_clean": true,
+      "scm_url": "https://github.com/sepiros62/mzc-sa-aws_iac.git",
+      "scm_delete_on_update": true,
+      "scm_type": "git",
+      "organization": "MegazoneCloud",
+      "asset_type": "project",
+      "name": "[Github] mzc-sa-aws_iac \uc800\uc7a5\uc18c"
+    },
+    {
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "root@localhost",
+      "is_superuser": true,
+      "asset_type": "user"
+    },
+    {
+      "username": "sepiros62",
+      "first_name": "Jaehwan",
+      "last_name": "Jeong",
+      "email": "sepiros62@gmail.com",
+      "is_superuser": true,
+      "asset_type": "user"
+    },
+    {
+      "organization": "MegazoneCloud",
+      "description": "DevOps Team",
+      "asset_type": "team",
+      "name": "DevOps"
+    },
+    {
+      "description": "\uba54\uac00\uc874\ud074\ub77c\uc6b0\ub4dc",
+      "asset_relation": {
+        "roles": [
+          {
+            "team": [],
+            "name": "Admin",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Execute",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Project Admin",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Inventory Admin",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Credential Admin",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Workflow Admin",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Notification Admin",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Job Template Admin",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Auditor",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Member",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Read",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Approve",
+            "user": []
+          }
+        ]
+      },
+      "asset_type": "organization",
+      "name": "MegazoneCloud"
+    },
+    {
+      "organization": "MegazoneCloud",
+      "variables": "---",
+      "asset_relation": {
+        "inventory_source": [
+          {
+            "name": "Local host",
+            "source_project": "[Github] mzc-sa-aws_iac \uc800\uc7a5\uc18c",
+            "source_path": "playbook/hosts",
+            "source": "scm",
+            "schedules": []
+          }
+        ],
+        "host": [],
+        "group": [],
+        "roles": [
+          {
+            "team": [],
+            "name": "Admin",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Update",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Ad Hoc",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Use",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Read",
+            "user": []
+          }
+        ]
+      },
+      "asset_type": "inventory",
+      "name": "[AWS] Local Inventory"
+    },
+    {
+      "organization": "MegazoneCloud",
+      "asset_relation": {
+        "inventory_source": [],
+        "host": [
+          {
+            "variables": "ansible_connection: local\nansible_python_interpreter: '{{ ansible_playbook_python }}'",
+            "name": "localhost"
+          }
+        ],
+        "group": [],
+        "roles": [
+          {
+            "team": [],
+            "name": "Admin",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Update",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Ad Hoc",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Use",
+            "user": []
+          },
+          {
+            "team": [],
+            "name": "Read",
+            "user": []
+          }
+        ]
+      },
+      "asset_type": "inventory",
+      "name": "Demo Inventory"
+    }
+  ]
+  
