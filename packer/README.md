@@ -17,7 +17,7 @@
 
 ## 디렉토리 레이아웃
 ```sh
-mzc-aws-provisioning/
+mzc-sa-aws_iac/
 
 ./packer/
 └── EC2-AMI
