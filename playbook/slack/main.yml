@@ -36,7 +36,7 @@
     - name: 'Send certificate alarm to the Slack'
       slack:
         token: 'T0JQED9ND/B014TR0J291/ZT31hryTmSUE5PRxxHsoHR1R'
-        channel: "#aws_tet_notice"
+        channel: "#slack_notice"
         color: 'good'
         icon_url: 'https://imgnew.megazone.com/2019/07/MZC_logo.png'
         username: 'Amazon Web Service'
