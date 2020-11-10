@@ -15,7 +15,7 @@ resource "null_resource" "previous" {}
 resource "time_sleep" "wait_15_seconds" {
   depends_on = [null_resource.previous]
 
-  create_duration = "15s"
+  create_duration = "20s"
 }
 
 resource "aws_s3_bucket_object" "object" {
@@ -23,5 +23,5 @@ resource "aws_s3_bucket_object" "object" {
   key    = "index.html"
   source = "index.html"
 
-  force_destroy = false
+  force_destroy = true
 }
