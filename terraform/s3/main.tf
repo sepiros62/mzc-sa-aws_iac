@@ -18,10 +18,12 @@ resource "time_sleep" "wait_15_seconds" {
   create_duration = "15s"
 }
 
+resource "null_resource" "previous" {}
+
 resource "aws_s3_bucket_object" "object" {
   bucket = aws_s3_bucket.bucket.id
   key    = "index.html"
   source = "index.html"
 
-  force_destroy = true
+  force_destroy = false
 }
